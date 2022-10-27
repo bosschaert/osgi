@@ -6,26 +6,33 @@ package org.osgi.service.feature.launcher;
 public class LauncherException extends Exception {
 	private static final long serialVersionUID = 1L;
 
-	enum Reason {
-		NoConfigAdmin,
+	public enum Reason {
+		NO_CONFIG_ADMIN,
 
-		BundleResolution, BundleActivation,
+		BUNDLE_INSTALLATION, BUNDLE_RESOLUTION, BUNDLE_ACTIVATION,
 
-		FrameworkProperty
+		FRAMEWORK_PROPERTY, FRAMEWORK_INIT, FRAMEWORK_ACTIVATION,
 
+		BUNDLE_CONFLICT
 	}
 
 	private final Reason reason;
 
-	LauncherException(Reason reason, String message) {
+	public LauncherException(Reason reason, String message) {
 		super(message);
+
+		this.reason = reason;
+	}
+
+	public LauncherException(Reason reason, Throwable exception) {
+		super(exception);
 
 		this.reason = reason;
 	}
 
 	/**
 	 * Get the reason for the exception;
-	 * 
+	 *
 	 * @return The reason
 	 */
 	public Reason getReason() {

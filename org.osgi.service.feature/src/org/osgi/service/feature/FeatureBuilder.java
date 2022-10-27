@@ -135,6 +135,8 @@ public interface FeatureBuilder {
 	 */
 	FeatureBuilder addVariables(Map<String,Object> variables);
 
+	FeatureBuilder copyFeature(Feature f, BuilderFilter bf);
+
     /**
      * Build the Feature. Can only be called once on a builder. After
      * calling this method the current builder instance cannot be used any more.

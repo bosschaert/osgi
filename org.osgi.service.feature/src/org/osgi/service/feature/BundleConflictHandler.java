@@ -5,6 +5,7 @@ public interface BundleConflictHandler {
 		USE_OLD, USE_NEW, USE_BOTH
 	}
 
-	Resolution resolveBundleConflict(FeatureBundle existingBundle,
+	Resolution resolveBundleConflict(Feature existingFeature,
+			FeatureBundle existingBundle, Feature newFeature,
 			FeatureBundle newBundle);
 }
