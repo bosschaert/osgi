@@ -98,4 +98,6 @@ public interface FeatureService {
      * @throws IOException When writing fails.
      */
 	void writeFeature(Feature feature, Writer jsonWriter) throws IOException;
+
+	FeatureMerger newFeatureMerger();
 }

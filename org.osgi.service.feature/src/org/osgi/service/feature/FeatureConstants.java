@@ -37,5 +37,5 @@ public final class FeatureConstants {
 	 * The version of the implementation capability for the Feature
 	 * specification.
 	 */
-	public static final String	FEATURE_SPECIFICATION_VERSION	= "1.0";
+	public static final String	FEATURE_SPECIFICATION_VERSION	= "1.1";
 }

@@ -75,19 +75,19 @@
   	in an OSGi Framework or using the ServiceLoader mechanism otherwise.
   	</para>
   	
-  	<programlisting>ServiceLoader&lt;LauncherFactory&gt; sl =
-  ServiceLoader.load(LauncherFactory.class);
+  	<programlisting>LauncherFactory lf = ServiceLoader.load(LauncherFactory.class).iterator().next();
+FeatureService fs = ServiceLoader.load(FeatureService.class).iterator().next()
 
-LauncherFactory factory = sl.iterator().next();
-Launcher launcher = factory.newLauncher(
-  new URL("file:///home/david/myfeature.json"),
-  Collections.emptyMap());
-launcher.start();
+Feature myFeature = fs.readFeature(new InputStreamReader(
+  new URL("file:///home/david/myfeature.json").openStream()));
+Launcher launcher = factory.newLauncher(myFeature, Collections.emptyMap());
 
-launcher.waitForStop(0); // Start is asynchronous
+FrameworkFactory ff = launcher.findFrameworkFactory();
+Framework framework = launcher.createFramework(ff);
+launcher.launch(framework);
   	</programlisting>
   	
-  	<para>If a Feature can't be launched <code>waitForStop()</code> will throw a 
+  	<para>If a Feature can't be launched <code>start()</code> will throw a 
   	<xref linkend="org.osgi.service.feature.launcher.LauncherException"
   	xrefstyle="hyperlink"/>.
   	</para>
@@ -136,6 +136,24 @@ launcher.waitForStop(0); // Start is asynchronous
   </section>
 
   <section>
+  	<title>Specifying Variables</title>
+  	<para>Variables allow for late binding of configuration values and Framework properties.
+  	Variables are provided through the <xref linkend="org.osgi.service.feature.launcher.LauncherFactory"
+  	xrefstyle="hyperlink"/>:
+  	<programlisting>Map&lt;String,Object&gt; variables = new HashMap&lt;&gt;();
+variables.put("user.name", "scott");
+variables.put("db.driver", "postgresql");
+  	
+LauncherFactory factory = ... // From Service Registry or Service Loader
+Launcher launcher = factory.newLauncher(
+  new URL("https://repo.maven.apache.org/maven2/org/foo/Bar/1.0.0/Bar-1.0.0.osgifeature"),
+  variables);
+  
+launcher.start();</programlisting>
+  	</para>
+  </section>
+  
+  <section>
   	<title>Specifying Runtime Preconditions</title>
   	<para>A Feature can specify the preconditions it places on its runtime environment. That is,
   	the Framework used to run the Feature in, must satisfy these constraints. If the Launcher
@@ -153,28 +171,27 @@ launcher.waitForStop(0); // Start is asynchronous
       "filter":    "(&amp;(osgi.ee=JavaSE)(version=11))"
     }, {
       "namespace": "osgi.wiring.package", 
-      "filter":    "(&amp;(osgi.wiring.package=org.osgi.framework)(version=1.10))"    
+      "filter":    "(&amp;(osgi.wiring.package=org.osgi.framework)(version&gt;=1.10))"    
     }
   ]</programlisting>
   	</para>
   </section>
 
   <section>
-  	<title>Specifying Variables</title>
-  	<para>Variables allow for late binding of configuration values and Framework properties.
-  	Variables are provided through the <xref linkend="org.osgi.service.feature.launcher.LauncherFactory"
-  	xrefstyle="hyperlink"/>:
-  	<programlisting>Map&lt;String,Object&gt; variables = new HashMap&lt;&gt;();
-variables.put("user.name", "scott");
-variables.put("db.driver", "postgresql");
-  	
-LauncherFactory factory = ... // From Service Registry or Service Loader
-Launcher launcher = factory.newLauncher(
-  new URL("https://repo.maven.apache.org/maven2/org/foo/Bar/1.0.0/Bar-1.0.0.osgifeature"),
-  variables);
-  
-launcher.start();</programlisting>
-  	</para>
+    <title>Specifying the Framework to launch</title>
+    <para>
+    <programlisting>"extensions": {
+    "frameworks": {
+      "type": "artifacts",
+      "kind": "mandatory",
+      "artifacts": [
+          {"id": "org.apache.felix:org.apache.felix.framework:7.0.5"},
+      ]
+    }
+  }
+    </programlisting>
+    
+    </para>
   </section>
 
   <section>

@@ -1,30 +1,38 @@
 package org.osgi.service.feature.launcher;
 
 import org.osgi.framework.launch.Framework;
+import org.osgi.framework.launch.FrameworkFactory;
 
 /**
- * A launcher can launch a Feature model into a running system.
+ * A launcher can launch a Feature to become a running system. The launcher is
+ * created for a Feature using the LauncherFactory.
  */
 public interface Launcher {
 	/**
-	 * Start the launcher. This method is asynchronous and will return as soon
-	 * as the launching has been initiated.
+	 * Return a framework factory suited to launch the feature in. This factory
+	 * satisfies the framework related requirements in the feature such as the
+	 * minimum framework API version and the framework implementation if
+	 * specified.
 	 * 
-	 * @return The Framework the Feature is launched into.
+	 * @return The framework factory or {@code null} if the launcher cannot find
+	 *         a framework.
 	 */
-	Framework start();
+	FrameworkFactory findFrameworkFactory();
 
 	/**
-	 * Wait until the system has stopped.
+	 * Create a new framework with the framework launching properties as
+	 * specified in the Feature.
 	 * 
-	 * @param timeout Maximum number of milliseconds to wait. A value of zero
-	 *            will wait indefinitely.
-	 * @throws InterruptedException If another thread interrupted the current
-	 *             thread before or while the current thread was waiting for the
-	 *             system to stop. The <i>interrupted status</i> of the current
-	 *             thread is cleared when this exception is thrown.
-	 * @throws LauncherException When the launch is not successful.
+	 * @param factory The framework factory to use.
+	 * @return The started framework.
 	 */
-	void waitForStop(long timeout)
-			throws InterruptedException, LauncherException;
+	Framework createFramework(FrameworkFactory factory);
+
+	/**
+	 * Launch the Feature in the Framework provided.
+	 * 
+	 * @param framework The Framework the Feature is launched into.
+	 * @throws LauncherException If an issue happens during launching
+	 */
+	void launch(Framework framework) throws LauncherException;
 }
