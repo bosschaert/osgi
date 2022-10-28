@@ -13,7 +13,7 @@ public class LauncherException extends Exception {
 
 		FRAMEWORK_PROPERTY, FRAMEWORK_INIT, FRAMEWORK_ACTIVATION,
 
-		BUNDLE_CONFLICT
+		BUNDLE_CONFLICT, IO
 	}
 
 	private final Reason reason;
@@ -26,6 +26,13 @@ public class LauncherException extends Exception {
 
 	public LauncherException(Reason reason, Throwable exception) {
 		super(exception);
+
+		this.reason = reason;
+	}
+
+	public LauncherException(Reason reason, String message,
+			Throwable exception) {
+		super(message, exception);
 
 		this.reason = reason;
 	}
