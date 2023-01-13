@@ -697,13 +697,11 @@ Feature f = builder.build();</programlisting>
     "license": "https://opensource.org/licenses/Apache-2.0",
     
     "extensions": {
-        "org.acme.execution-environment": {
+        "org.acme.private.api": {
             "type": "json",
             "json": {
-                "environment-capabilities":
-                    ["osgi.ee; filter:=\"(&amp;(osgi.ee=JavaSE)(version=11))\""], 
-                "framework": "org.osgi:core:6.0.0",
-                "provided-features": ["org.acme:platform:1.1"]
+            	"packages": ["org.acme.impl", "org.acme.runtime"],
+            	"documentation": "https://api.acme.org/"
             }
         }
     }
