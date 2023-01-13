@@ -17,25 +17,8 @@
  *******************************************************************************/
 package org.osgi.service.feature;
 
-public interface BundleConflictHandler {
-	public enum Resolution {
-		/**
-		 * Use the existing bundle.
-		 */
-		USE_EXISTING,
-
-		/**
-		 * Use thew new bundle
-		 */
-		USE_NEW,
-
-		/**
-		 * Use both bundles
-		 */
-		USE_BOTH
-	}
-
-	Resolution resolveBundleConflict(Feature existingFeature,
-			FeatureBundle existingBundle, Feature newFeature,
-			FeatureBundle newBundle);
+public interface ExtensionConflictHandler {
+	FeatureExtension resolveExtensionConflict(Feature existingFeature,
+			FeatureExtension existingExt, Feature newFeature,
+			FeatureExtension newExt);
 }

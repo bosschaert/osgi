@@ -5,8 +5,8 @@ public interface BuilderFilter {
 		return bundle;
 	}
 
-	default FeatureConfiguration filterConfiguration(
-			Feature f, FeatureConfiguration config) {
+	default FeatureConfiguration filterConfiguration(Feature f,
+			FeatureConfiguration config) {
 		return config;
 	}
 }

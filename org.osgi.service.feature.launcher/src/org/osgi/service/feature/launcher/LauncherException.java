@@ -7,13 +7,50 @@ public class LauncherException extends Exception {
 	private static final long serialVersionUID = 1L;
 
 	public enum Reason {
+		/**
+		 * No configuration admin found
+		 */
 		NO_CONFIG_ADMIN,
 
-		BUNDLE_INSTALLATION, BUNDLE_RESOLUTION, BUNDLE_ACTIVATION,
+		/**
+		 * Problem during bundle installation
+		 */
+		BUNDLE_INSTALLATION,
 
-		FRAMEWORK_PROPERTY, FRAMEWORK_INIT, FRAMEWORK_ACTIVATION,
+		/**
+		 * Problem during bundle resolution
+		 */
+		BUNDLE_RESOLUTION,
 
-		BUNDLE_CONFLICT, IO
+		/**
+		 * Problem during bundle activation
+		 */
+		BUNDLE_ACTIVATION,
+
+		/**
+		 * Problem with framework property
+		 */
+		FRAMEWORK_PROPERTY,
+
+		/**
+		 * Problem during framework initialisation
+		 */
+		FRAMEWORK_INIT,
+
+		/**
+		 * Problem during framework activation
+		 */
+		FRAMEWORK_ACTIVATION,
+
+		/**
+		 * Bundle conflict
+		 */
+		BUNDLE_CONFLICT,
+
+		/**
+		 * IO problem
+		 */
+		IO
 	}
 
 	private final Reason reason;

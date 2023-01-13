@@ -75,19 +75,18 @@
   	in an OSGi Framework or using the ServiceLoader mechanism otherwise.
   	</para>
   	
-  	<programlisting>LauncherFactory lf = ServiceLoader.load(LauncherFactory.class).iterator().next();
-FeatureService fs = ServiceLoader.load(FeatureService.class).iterator().next()
-
+  	<programlisting>FeatureService fs = ServiceLoader.load(FeatureService.class).iterator().next();
 Feature myFeature = fs.readFeature(new InputStreamReader(
   new URL("file:///home/david/myfeature.json").openStream()));
-Launcher launcher = factory.newLauncher(myFeature, Collections.emptyMap());
+
+LauncherFactory lf = ServiceLoader.load(LauncherFactory.class).iterator().next();
+Launcher launcher = lf.newLauncher(myFeature, Collections.emptyMap());
 
 FrameworkFactory ff = launcher.findFrameworkFactory();
 Framework framework = launcher.createFramework(ff);
-launcher.launch(framework);
-  	</programlisting>
+launcher.launch(framework);</programlisting>
   	
-  	<para>If a Feature can't be launched <code>start()</code> will throw a 
+  	<para>If a Feature can't be launched <code>launch()</code> will throw a 
   	<xref linkend="org.osgi.service.feature.launcher.LauncherException"
   	xrefstyle="hyperlink"/>.
   	</para>

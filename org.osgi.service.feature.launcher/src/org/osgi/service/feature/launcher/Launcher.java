@@ -21,16 +21,18 @@ public interface Launcher {
 	 */
 	Feature getCurrentFeature(Framework framework) throws IOException;
 
-	/**
-	 * Return a framework factory suited to launch the feature in. This factory
-	 * satisfies the framework related requirements in the feature such as the
-	 * minimum framework API version and the framework implementation if
-	 * specified.
-	 * 
-	 * @return The framework factory or {@code null} if the launcher cannot find
-	 *         a framework.
-	 */
-	FrameworkFactory findFrameworkFactory();
+	// /**
+	// * Return a framework factory suited to launch the feature in. This
+	// factory
+	// * satisfies the framework related requirements in the feature such as the
+	// * minimum framework API version and the framework implementation if
+	// * specified.
+	// *
+	// * @return The framework factory or {@code null} if the launcher cannot
+	// find
+	// * a framework.
+	// */
+	// FrameworkFactory findFrameworkFactory();
 
 	/**
 	 * Create a new framework with the framework launching properties as
@@ -51,4 +53,6 @@ public interface Launcher {
 	 * @throws LauncherException If an issue happens during launching
 	 */
 	void launch(Framework framework) throws LauncherException;
+
+	void apply(Feature feature) throws LauncherException;
 }

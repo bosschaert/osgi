@@ -17,25 +17,10 @@
  *******************************************************************************/
 package org.osgi.service.feature;
 
-public interface BundleConflictHandler {
-	public enum Resolution {
-		/**
-		 * Use the existing bundle.
-		 */
-		USE_EXISTING,
+public class MergeException extends Exception {
+	private static final long serialVersionUID = 1L;
 
-		/**
-		 * Use thew new bundle
-		 */
-		USE_NEW,
-
-		/**
-		 * Use both bundles
-		 */
-		USE_BOTH
+	public MergeException(String reason) {
+		super(reason);
 	}
-
-	Resolution resolveBundleConflict(Feature existingFeature,
-			FeatureBundle existingBundle, Feature newFeature,
-			FeatureBundle newBundle);
 }

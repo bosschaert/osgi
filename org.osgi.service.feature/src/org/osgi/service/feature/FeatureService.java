@@ -99,5 +99,11 @@ public interface FeatureService {
      */
 	void writeFeature(Feature feature, Writer jsonWriter) throws IOException;
 
+	/**
+	 * Obtain a new feature merger. This merger can be configured for a specific
+	 * merge operation.
+	 * 
+	 * @return the new feature merger.
+	 */
 	FeatureMerger newFeatureMerger();
 }
