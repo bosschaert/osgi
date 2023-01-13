@@ -824,6 +824,48 @@ Feature f = builder.build();</programlisting>
   <section>
     <title>Capabilities</title>
 
+	<section>
+	  <title>Requirements in the feature</title>
+	  
+	  <para>
+	  Features implicitly inherit all requirements from all bundles declared in the feature
+	  this includes both requirements declared through the <code>Require-Capability</code>
+	  header as well as ones declared through specific headers such as <code>Import-Package</code>.
+	  </para>
+	  
+	  <para>
+	  A feature can also declare additional requirements in its <code>requirements</code>
+	  section. These requirements will be used in addition to the inherited requirements 
+	  when a feature is being resolved, for example
+	  by a Launcher. For example:
+	  
+	  <programlisting>    "requirements": [
+        {
+            "namespace": "osgi.extender",
+            "directives": {
+                "filter": "(&amp;(osgi.extender=osgi.component)(version&gt;=1.5)(!(version&gt;=2.0)))"
+            }
+        }
+    ]
+
+	  </programlisting> 
+	  </para>
+  	</section>
+  	
+  	<section>
+  	  <title>Capabilities in the feature</title>
+  	  
+  	  <para>As with requirements, a feature inherits all capabilities from all bundles 
+  	  declared by it, including ones declared through specific headers such as 
+  	  <code>Export-Package</code>.
+  	  </para>
+  	  
+  	  <para>A feature can also declare additional capabilities in its <code>capabilities</code>
+  	  section. For purposes of resolution, these capabilities will be added to the ones inherited
+  	  from the bundles.
+  	  </para>
+    </section>
+
     <section>
       <title>osgi.service Capability</title>
 
