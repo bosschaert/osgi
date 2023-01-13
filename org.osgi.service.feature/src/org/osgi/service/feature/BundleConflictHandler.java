@@ -17,7 +17,13 @@
  *******************************************************************************/
 package org.osgi.service.feature;
 
+/**
+ * Handler to resolve bundle merge conflicts.
+ */
 public interface BundleConflictHandler {
+	/**
+	 * Possible resolutions to a bundle conflict.
+	 */
 	public enum Resolution {
 		/**
 		 * Use the existing bundle.
@@ -35,6 +41,18 @@ public interface BundleConflictHandler {
 		USE_BOTH
 	}
 
+	/**
+	 * This method is called when a bundle conflict needs to be resolved. A
+	 * bundle conflict happens when two features are merged which contain
+	 * bundles with the same group ID and the same artifact ID, but different
+	 * versions.
+	 * 
+	 * @param existingFeature The existing feature
+	 * @param existingBundle The existing bundle
+	 * @param newFeature The new feature
+	 * @param newBundle The new bundle
+	 * @return The resolution to the conflict
+	 */
 	Resolution resolveBundleConflict(Feature existingFeature,
 			FeatureBundle existingBundle, Feature newFeature,
 			FeatureBundle newBundle);

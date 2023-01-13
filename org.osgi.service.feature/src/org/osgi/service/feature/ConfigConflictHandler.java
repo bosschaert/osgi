@@ -17,7 +17,21 @@
  *******************************************************************************/
 package org.osgi.service.feature;
 
+/**
+ * Handler to resolve configuration merge conflicts.
+ */
 public interface ConfigConflictHandler {
+	/**
+	 * This method is called when a configuration conflict needs to be resolved.
+	 * A configuration conflict happens when two features are merged which both
+	 * have the same PID in their configurations.
+	 * 
+	 * @param existingFeature The existing feature
+	 * @param existingConfig The existing configuration
+	 * @param newFeature The new feature
+	 * @param newConfig The new configuration
+	 * @return The resulting configuration
+	 */
 	FeatureConfiguration resolveConfigConflict(Feature existingFeature,
 			FeatureConfiguration existingConfig, Feature newFeature,
 			FeatureConfiguration newConfig);
